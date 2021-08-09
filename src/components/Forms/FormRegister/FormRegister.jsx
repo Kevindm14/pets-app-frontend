@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -51,16 +51,47 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    formControl: {
+        margin: '1em 0',
+        minWidth: '100%',
+    },
 }));
 
-const FormRegister = () => {
+const FormRegister = ({ signup }) => {
     const classes = useStyles();
+    const [user, setUser] = useState({
+        first_name: '',
+        last_name: '',
+        age: '',
+        country: '',
+        email: '',
+        password: '',
+    })
+
+    function handleInputChange(e){
+        setUser ({
+            ...user,
+            [e.target.name]: e.target.value
+        });
+
+        console.log(user)
+    }
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+
+        try{
+          await signup(user);
+        }catch(error){
+            console.log(error);
+        }
+    }
 
     return (
         <Grid container component="main" className={classes.root}>
             <CssBaseline />
             <Grid item xs={false} sm={4} md={7} className={classes.image} />
-            <Grid container xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+            <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
                         <LockOutlinedIcon />
@@ -68,17 +99,19 @@ const FormRegister = () => {
                     <Typography component="h1" variant="h5">
                         Registrate
                     </Typography>
-                    <form className={classes.form} noValidate>
+                    <form className={classes.form} onSubmit={handleSubmit}>
                         <TextField
                             variant="outlined"
                             margin="normal"
                             required
                             fullWidth
-                            id="firstName"
+                            id="first_name"
                             label="Nombres"
-                            name="FirstName"
-                            autoComplete="firstname"
+                            name="first_name"
+                            autoComplete="first_name"
                             autoFocus
+                            onChange={handleInputChange} 
+                            value={user.first_name}
                         />
                         <TextField
                             variant="outlined"
@@ -87,9 +120,11 @@ const FormRegister = () => {
                             fullWidth
                             id="lastName"
                             label="Apellidos"
-                            name="LastName"
-                            autoComplete="lastname"
+                            name="last_name"
+                            autoComplete="last_name"
                             autoFocus
+                            onChange={handleInputChange} 
+                            value={user.last_name}
                         />
                         <TextField
                             variant="outlined"
@@ -98,9 +133,11 @@ const FormRegister = () => {
                             fullWidth
                             id="age"
                             label="Edad"
-                            name="Age"
+                            name="age"
                             autoComplete="age"
                             autoFocus
+                            onChange={handleInputChange} 
+                            value={user.age}
                         />
                         <TextField
                             variant="outlined"
@@ -110,8 +147,10 @@ const FormRegister = () => {
                             id="country"
                             label="Pais"
                             name="country"
-                            autoComplete="age"
+                            autoComplete="country"
                             autoFocus
+                            onChange={handleInputChange} 
+                            value={user.country}
                         />
                         <TextField
                             variant="outlined"
@@ -123,6 +162,8 @@ const FormRegister = () => {
                             name="email"
                             autoComplete="email"
                             autoFocus
+                            onChange={handleInputChange} 
+                            value={user.email}
                         />
                         <TextField
                             variant="outlined"
@@ -134,17 +175,8 @@ const FormRegister = () => {
                             type="password"
                             id="password"
                             autoComplete="current-password"
-                        />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            name="passwordConfirmation"
-                            label="Confirmar Contraseña"
-                            type="password"
-                            id="password"
-                            autoComplete="current-password"
+                            onChange={handleInputChange} 
+                            value={user.passsword}
                         />
                         <Button
                             type="submit"
@@ -155,8 +187,8 @@ const FormRegister = () => {
                         >
                             Registrarse
                         </Button>
-                        <Grid container>
-                            <Grid item justifyContent="center">
+                        <Grid container justifyContent="center">
+                            <Grid item>
                                 <Link to="/login" variant="body2">
                                     {"Ya estas registrado? Inicia sesion"}
                                 </Link>

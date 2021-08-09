@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -9,7 +9,7 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import useStyles from './styles';
 
 const Copyright = () => {
   return (
@@ -24,37 +24,32 @@ const Copyright = () => {
   );
 }
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    height: '100vh',
-  },
-  image: {
-    backgroundImage: 'url(https://i.imgur.com/vuo6LyA.jpg)',
-    backgroundRepeat: 'no-repeat',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  },
-  paper: {
-    margin: theme.spacing(20, 8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
-const FormLogin = () => {
+const FormLogin = (props) => {
+  const { login } = props;
   const classes = useStyles();
+  const [hash, setHash] = useState({
+    email: '',
+    password: ''
+  })
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await login(hash.email, hash.password)
+    } catch (error) {
+      // mostrarError(error.response.data);
+      console.log(error);
+    }
+  }
+
+  const handleInputChange = (e) => {
+    setHash({
+      ...hash,
+      [e.target.name]: e.target.value
+    });
+  }
+
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -68,7 +63,7 @@ const FormLogin = () => {
           <Typography component="h1" variant="h5">
             Inicia Sesión
           </Typography>
-          <form className={classes.form} noValidate>
+          <form className={classes.form} onSubmit={handleSubmit}>
             <TextField
               variant="outlined"
               margin="normal"
@@ -76,9 +71,12 @@ const FormLogin = () => {
               fullWidth
               id="email"
               label="Email Address"
+              type="email"
               name="email"
               autoComplete="email"
               autoFocus
+              value={hash.email}
+              onChange={handleInputChange}
             />
             <TextField
               variant="outlined"
@@ -90,6 +88,8 @@ const FormLogin = () => {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={hash.password}
+              onChange={handleInputChange}
             />
             <Button
               type="submit"
@@ -100,8 +100,8 @@ const FormLogin = () => {
             >
               Inicia sesión
             </Button>
-            <Grid container>
-              <Grid item justifyContent="center">
+            <Grid container justifyContent="center">
+              <Grid item>
                 <Link to="/signup" variant="body2">
                   {"No tienes una cuenta aun? Registrate"}
                 </Link>

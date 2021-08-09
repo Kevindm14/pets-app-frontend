@@ -3,14 +3,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Typography from '@material-ui/core/Typography';
-import Image from "./assets/img/perros.jpg"
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import Button from '@material-ui/core/Button';
 import { Grid } from "@material-ui/core";
 import Card from "./components/Cards/MediaCard";
+import Image from "./assets/img/perros.jpg"
 const dogs = require('./dogs.js');
-
-
 
 const useStyles = makeStyles(() => ({
 	paperContainer: {
@@ -78,6 +76,7 @@ const useStyles = makeStyles(() => ({
 		boxShadow: '6px 6px 19px -8px rgba(0,0,0,0.75)',
 	}
 }));
+
 
 function App() {
 	const classes = useStyles();
