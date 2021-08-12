@@ -63,9 +63,11 @@ const FormRegister = ({ signup }) => {
         first_name: '',
         last_name: '',
         age: '',
-        country: '',
+        country: 'Colombia',
+        province: '',
         email: '',
         password: '',
+        passsword_digest: ''
     })
 
     function handleInputChange(e){
@@ -73,8 +75,6 @@ const FormRegister = ({ signup }) => {
             ...user,
             [e.target.name]: e.target.value
         });
-
-        console.log(user)
     }
 
     async function handleSubmit(e) {
@@ -149,8 +149,22 @@ const FormRegister = ({ signup }) => {
                             name="country"
                             autoComplete="country"
                             autoFocus
+                            disabled={true}
                             onChange={handleInputChange} 
                             value={user.country}
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="province"
+                            label="Provincia"
+                            name="province"
+                            autoComplete="province"
+                            autoFocus
+                            onChange={handleInputChange} 
+                            value={user.province}
                         />
                         <TextField
                             variant="outlined"
@@ -177,6 +191,19 @@ const FormRegister = ({ signup }) => {
                             autoComplete="current-password"
                             onChange={handleInputChange} 
                             value={user.passsword}
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="passsword_digest"
+                            label="Contraseña"
+                            type="password"
+                            id="passsword_digest"
+                            autoComplete="current-password"
+                            onChange={handleInputChange} 
+                            value={user.passsword_digest}
                         />
                         <Button
                             type="submit"
