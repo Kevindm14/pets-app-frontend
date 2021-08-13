@@ -4,14 +4,14 @@ import * as locales from '@material-ui/core/locale';
 
 const theme = createTheme({
   typography: {
-    fontFamily: 'Roboto',
+    fontFamily: 'Open Sans',
   },
   palette: {
     primary: {
-      main: '#fbc02d',
+      main: '#4DB8C0',
     },
     secondary: {
-      main: '#05353D'
+      main: '#128A95'
     },
     tonalOffset: 0.1,
     background: {

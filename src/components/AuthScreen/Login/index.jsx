@@ -1,8 +1,8 @@
 import React from 'react';
-import FormLogin from "./../../components/Forms/FormLogin";
+import FormLogin from "../../Forms/FormLogin/FormLogin";
 
-const LoginScreen = () => {
-  return <FormLogin />
+const LoginScreen = ({ login }) => {
+  return <FormLogin login={login} />
 }
  
 export default LoginScreen;

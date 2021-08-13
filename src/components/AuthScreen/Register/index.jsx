@@ -1,8 +1,8 @@
 import React from 'react';
-import FormRegister from "./../../components/Forms/FormRegister";
+import FormRegister from "../../Forms/FormRegister/FormRegister";
 
-const RegisterScreen = () => {
-  return <FormRegister />
+const RegisterScreen = ({ signup }) => {
+  return <FormRegister signup={signup} />
 }
  
 export default RegisterScreen;
