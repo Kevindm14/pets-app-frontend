@@ -136,7 +136,7 @@ const FormPet = (props) => {
     e.preventDefault();
 
     try {
-      await axiosClient.post('http://localhost:3000/pets', pet, {
+      await axiosClient.post('https://warm-tundra-35134.herokuapp.com/pets', pet, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': getToken(),

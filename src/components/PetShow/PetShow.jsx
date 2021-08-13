@@ -61,7 +61,7 @@ const PetShow = ({ logout, usuario }) => {
   useEffect(() => {
     const loadPet = async () => {
       try {
-        const { data } = await axiosClient.get(`http://localhost:3000/pets/${id}`, {
+        const { data } = await axiosClient.get(`https://warm-tundra-35134.herokuapp.com/pets/${id}`, {
           headers: { 'Authorization': getToken() }
         });
 
@@ -76,7 +76,7 @@ const PetShow = ({ logout, usuario }) => {
 
   const updateStatePet = async () => {
     try {
-      const { data } = await axiosClient.put(`http://localhost:3000/pets/${id}/update_status`, pet, {
+      const { data } = await axiosClient.put(`https://warm-tundra-35134.herokuapp.com/pets/${id}/update_status`, pet, {
         headers: { 'Authorization': getToken() }
       });
 

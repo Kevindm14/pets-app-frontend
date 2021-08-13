@@ -66,7 +66,7 @@ const DashboardScreen = (props) => {
   useEffect(() => {
     const loading = async () => {
       try {
-        const { data } = await axiosClient.get('http://localhost:3000/pets', {
+        const { data } = await axiosClient.get('https://warm-tundra-35134.herokuapp.com/pets', {
           headers: { 'Authorization': getToken() }
         });
 

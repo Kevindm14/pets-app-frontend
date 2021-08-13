@@ -28,7 +28,7 @@ const AppRouter = () => {
       }
 
       try {
-        const data = await axiosClient.get('http://localhost:3000/users/profile', {
+        const data = await axiosClient.get('https://warm-tundra-35134.herokuapp.com/users/profile', {
           headers: { 'Authorization': getToken() }
         });
 
@@ -44,7 +44,7 @@ const AppRouter = () => {
   console.log(usuario)
 
   async function login(email, password) {
-    const { data } = await axiosClient.post('http://localhost:3000/users/sign_in', {
+    const { data } = await axiosClient.post('https://warm-tundra-35134.herokuapp.com/users/sign_in', {
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       user: {
         email,
@@ -59,7 +59,7 @@ const AppRouter = () => {
   }
 
   async function signup(user) {
-    const { data } = await axiosClient.post('http://localhost:3000/users/sign_up', {
+    const { data } = await axiosClient.post('https://warm-tundra-35134.herokuapp.com/users/sign_up', {
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

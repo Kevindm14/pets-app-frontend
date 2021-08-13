@@ -48,10 +48,9 @@ const Footer = () => {
         <Typography variant="h6" className={classes.title} color="primary" gutterBottom>
           New Best Friend
         </Typography>
-        <p>En Miwuki podrás encontrar cientos de perros, cachorros,
-          gatos, gatitos, hurones, conejos, cobayas, ratas, ratones, chinchillas, jerbos,
-          cerdos reptiles, aves... en adopción procedentes de protectoras y asociaciones de animales o perreras de todo el mundo.
-          ¿Estás buscando adoptar o acoger un animal? ¡Estás en el sitio adecuado! Adopta, salva una vida y gana un amigo con Miwuki Pet Shelter.</p>
+        <p>En New Best Friend podrás encontrar cientos de perros, cachorros,
+          gatos, gatitos, hurones, conejos... En adopción procedentes de protectoras y asociaciones de animales o perreras de todo el mundo.
+          ¿Estás buscando adoptar o acoger un animal? ¡Estás en el sitio adecuado! Adopta, salva una vida y gana un amigo con New Best Friend.</p>
         </div>
         <PetsIcon className={classes.icon} />
         </Container>
