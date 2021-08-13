@@ -13,10 +13,14 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 
 import Nav from "../../Nav/Nav";
+import Footer from '../../Footer/Footer';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
+  },
+  button: {
+    color: 'white'
   },
   sidebar: {
     display: 'flex',
@@ -47,7 +51,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: '2em'
   },
   data: {
-
     color: '#616161',
     margin: theme.spacing(4, 2),
     padding: theme.spacing(4),
@@ -55,13 +58,14 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: '5px',
     width: '74%'
   },
+  title: {
+    color: '#4DB8C0',
+    marginBottom: '1em',
+  },
   location: {
-    margin: '2em 0'
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
-  },
+    color: '#4DB8C0',
+    margin: '2em 0',
+  }
 }));
 
 const FormUser = ({ logout, usuario }) => {
@@ -97,6 +101,7 @@ const FormUser = ({ logout, usuario }) => {
                 variant="contained"
                 color="primary"
                 onClick={logout}
+                className={classes.button}
               >
                 Cerrar sesión
               </Button>
@@ -104,7 +109,8 @@ const FormUser = ({ logout, usuario }) => {
             </div>
 
             <Grid container className={classes.data} direction="column">
-              <Grid item>
+              <form>
+              <Grid item className={classes.title}>
                 1. Datos
               </Grid>
 
@@ -207,7 +213,22 @@ const FormUser = ({ logout, usuario }) => {
                     value={usuario.data.password}
                   />
                 </Grid>
+
+                <Grid item xs={4}>
+                  <p>Guardar</p>
+                  <Link
+                    component={Button}
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                  >
+                    Guardar Cambios
+                  </Link>
+                </Grid>
+
+                
               </Grid>
+              </form>
             </Grid>
 
           </Grid>
@@ -219,22 +240,7 @@ const FormUser = ({ logout, usuario }) => {
         </Container>
       </main>
 
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          New Best Friend
-        </Typography>
-
-        <Typography variant="body2" color="textSecondary" align="center">
-          {'Copyright © '}
-
-          <Link color="inherit" to="/dashboard">
-            New best friend
-          </Link>{' '}
-
-          {new Date().getFullYear()}
-          {'.'}
-        </Typography>
-      </footer>
+      <Footer />
     </>
   )
 }

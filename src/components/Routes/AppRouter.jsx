@@ -81,7 +81,7 @@ const AppRouter = () => {
   if (loadingUser) {
     return (
       <div>
-        cargando
+        
       </div>
     )
   }

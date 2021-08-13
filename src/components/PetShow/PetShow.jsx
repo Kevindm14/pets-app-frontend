@@ -12,14 +12,11 @@ import Chip from '@material-ui/core/Chip';
 import { Link } from "react-router-dom";
 
 import Nav from "../Nav/Nav";
+import Footer from '../Footer/Footer';
 
 const useStyles = makeStyles((theme) => ({
   icon: {
     marginRight: theme.spacing(2),
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
   },
   cardGrid: {
     paddingTop: theme.spacing(8),
@@ -31,15 +28,14 @@ const useStyles = makeStyles((theme) => ({
   },
   perfil: {
     width: '300px',
-    borderRadius: '5px',
   },
   info: {
-    margin: theme.spacing(5, 0)
+    margin: theme.spacing(5, 0),
+    boxShadow: '6px 6px 19px -8px rgba(0,0,0,0.75)',
   },
   infoPet: {
     margin: theme.spacing(0, 5),
     padding: theme.spacing(2, 3),
-    border: '1px solid #BDBDBD',
     borderRadius: '5px',
     width: '350px'
   },
@@ -51,9 +47,9 @@ const useStyles = makeStyles((theme) => ({
   description: {
     height: '250px',
     padding: theme.spacing(2, 3),
-    borderRadius: '5px',
+    borderRadius: '10px',
     width: '100%',
-    border: '1px solid #BDBDBD',
+    
   }
 }));
 
@@ -102,7 +98,13 @@ const PetShow = ({ logout, usuario }) => {
                 {pet.name}
               </Typography>
 
-              <Chip label={pet.status} />
+              <Chip 
+                label={pet.status}
+                style={{ 
+                  backgroundColor: pet.status === 'Adoptado' ? '#F44336' : '#8CC24A',
+                  color: 'white'
+                }}  
+              />
 
               <Typography gutterBottom variant="h8" component="h4" style={{ margin: '0 1em' }}>
                 - {pet.country}, {pet.province}
@@ -187,19 +189,7 @@ const PetShow = ({ logout, usuario }) => {
         </Container>
       </main>
 
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          New Best Friend
-        </Typography>
-        <Typography variant="body2" color="textSecondary" align="center">
-          {'Copyright © '}
-          <Link color="inherit" to="/dashboard">
-            New best friend
-          </Link>{' '}
-          {new Date().getFullYear()}
-          {'.'}
-        </Typography>
-      </footer>
+      <Footer/>
     </>
   )
 }

@@ -18,19 +18,7 @@ import { Link } from "react-router-dom";
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty';
 
 import Nav from "../../Nav/Nav";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" to="/dashboard">
-        New best friend
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+import Footer from "../../Footer/Footer";
 
 const useStyles = makeStyles((theme) => ({
   icon: {
@@ -56,11 +44,9 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: '56.25%', // 16:9
   },
   cardContent: {
-    flexGrow: 1,
-  },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center'
   },
   shape: {
     backgroundColor: theme.palette.primary.main,
@@ -97,12 +83,12 @@ const DashboardScreen = (props) => {
       <CssBaseline />
       <Nav logout={logout} usuario={usuario} />
       <main>
-        <Container className={classes.cardGrid} maxWidth="lg">
+        <Container className={classes.cardGrid}>
           <Grid container spacing={4} >
             {
               pets.length ?
                 pets.map((pet) => (
-                  <Grid item key={pet.id} xs={12} sm={6} md={4}>
+                  <Grid item key={pet.id} xs={12} sm={6} md={3}>
                     <Card className={classes.card}>
                       <CardMedia
                         className={classes.cardMedia}
@@ -110,18 +96,22 @@ const DashboardScreen = (props) => {
                         title={pet.name}
                       />
                       <CardContent className={classes.cardContent}>
-                        <Typography gutterBottom variant="h5" component="h2">
+                        <Typography gutterBottom variant="h7" component="h7">
                           {pet.name}
                         </Typography>
 
-                        <Typography className={classes.description}>
-                          {pet.description}
-                        </Typography>
-                        <Chip label={pet.status} />
+                        <Chip
+                          label={pet.status}
+                          style={{
+                            backgroundColor: pet.status === 'Adoptado' ? '#F44336' : '#8CC24A',
+                            color: 'white'
+                          }}
+                        />
+
                       </CardContent>
                       <CardActions>
                         <Link component={Button} to={`/pets/${pet.id}`} size="small" color="primary">
-                          Mostrar informacion
+                          Mostrar
                         </Link>
                       </CardActions>
                     </Card>
@@ -156,14 +146,8 @@ const DashboardScreen = (props) => {
         </Container>
       </main>
 
-      {/* Footer */}
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          New Best Friend
-        </Typography>
-        <Copyright />
-      </footer>
-      {/* End footer */}
+      <Footer />
+
     </>
   )
 }

@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
     },
     image: {
-        backgroundImage: 'url(https://i.imgur.com/vuo6LyA.jpg)',
+        backgroundImage: 'url(https://i.imgur.com/GyTO5cH.jpg)',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
@@ -77,12 +77,17 @@ const FormRegister = ({ signup }) => {
         });
     }
 
+    const clearState = () => {
+        setUser({ ...user });
+      };
+
     async function handleSubmit(e) {
         e.preventDefault();
 
         try{
           await signup(user);
         }catch(error){
+            clearState();
             console.log(error);
         }
     }
@@ -90,7 +95,6 @@ const FormRegister = ({ signup }) => {
     return (
         <Grid container component="main" className={classes.root}>
             <CssBaseline />
-            <Grid item xs={false} sm={4} md={7} className={classes.image} />
             <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
                 <div className={classes.paper}>
                     <Avatar className={classes.avatar}>
@@ -227,6 +231,7 @@ const FormRegister = ({ signup }) => {
                     </form>
                 </div>
             </Grid>
+            <Grid item xs={false} sm={4} md={7} className={classes.image} />
         </Grid>
     );
 };

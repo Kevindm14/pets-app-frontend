@@ -18,6 +18,7 @@ import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/picker
 import DateFnsUtils from '@date-io/date-fns';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { useHistory } from "react-router-dom";
+import Footer from '../../Footer/Footer';
 
 
 function Copyright() {
@@ -59,15 +60,12 @@ const useStyles = makeStyles((theme) => ({
   cardContent: {
     flexGrow: 1,
   },
-  footer: {
-    backgroundColor: theme.palette.background.paper,
-    padding: theme.spacing(6),
-  },
   margin: {
     marginTop: '4em'
   },
   form: {
     border: '1px solid #E0E0E0',
+    boxShadow: '6px 6px 19px -8px rgba(0,0,0,0.75)',
     borderRadius: '7px',
     padding: '2em 4em',
     marginTop: '5em',
@@ -79,16 +77,21 @@ const useStyles = makeStyles((theme) => ({
   },
   location: {
     margin: '2em 0'
+  },
+  button: {
+    color: 'white'
+  },
+  error: {
+    color: 'red'
   }
 }));
 
 const FormPet = (props) => {
+  const { usuario, logout } = props;
   const classes = useStyles();
   const history = useHistory();
-  // const [selectedFile, setSelectedFile] = useState(null);
-  // const [preview, setPreview] = useState();
   const [selectedDate, setSelectedDate] = useState(new Date('2014-08-18T21:11:54'));
-  const { usuario, logout } = props;
+  const [error, setError] = useState()
   const [pet, setPet] = useState({
     name: '',
     species: '',
@@ -104,21 +107,7 @@ const FormPet = (props) => {
     perfil_photo: '',
   })
 
-  // const selectedFiles = () => {
-  //   if (selectedFile) {
-  //     setPet({
-  //       ...pet,
-  //       perfil_photo: selectedFile
-  //     })
-  //   }
-  // };
-
   useEffect(() => {
-    // if (!selectedFile) {
-    //   setPreview(undefined)
-    //   return
-    // }
-    
     const selectedFiles = () => {
       if (selectedDate) {
         setPet({
@@ -127,9 +116,6 @@ const FormPet = (props) => {
         })
       }
     };
-
-    // const objectUrl = URL.createObjectURL(selectedFile)
-    // setPreview(objectUrl)
 
     selectedFiles();
   }, [selectedDate])
@@ -158,11 +144,13 @@ const FormPet = (props) => {
       });
 
       history.replace("/pets")
-
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      setError(err.response.data)
+      console.error(err);
     }
   }
+
+  console.log(error)
 
   return (
     <>
@@ -176,7 +164,7 @@ const FormPet = (props) => {
         </Container>
         <Container maxWidth="lg">
           <form className={classes.form} onSubmit={handleSubmitPet}>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" gutterBottom color="primary">
               1. Datos
             </Typography>
             <Grid container spacing={4}>
@@ -188,7 +176,10 @@ const FormPet = (props) => {
                   name="name"
                   value={pet.name}
                   onChange={handleInputChange}
+                  error={error && error.name && Array.isArray(error.name)}
+                  helperText={error && error.name && Array.isArray(error.name) && (error.name[0])}
                 />
+                
               </Grid>
               <Grid item xs={3}>
                 <TextField
@@ -196,8 +187,10 @@ const FormPet = (props) => {
                   label="Especie"
                   variant="outlined"
                   name="species"
-                  value={pet.specie}
+                  value={pet.species}
                   onChange={handleInputChange}
+                  error={error && error.species && Array.isArray(error.species)}
+                  helperText={error && error.species && Array.isArray(error.species) && (error.species[0])}
                 />
               </Grid>
 
@@ -209,6 +202,8 @@ const FormPet = (props) => {
                   name="status"
                   value={pet.status}
                   onChange={handleInputChange}
+                  error={error && error.status && Array.isArray(error.status)}
+                  helperText={error && error.status && Array.isArray(error.status) && (error.status[0])}
                 />
               </Grid>
               <Grid item xs={3}>
@@ -217,6 +212,7 @@ const FormPet = (props) => {
                   <FormControlLabel value="hembra" control={<Radio />} label="Hembra" />
                   <FormControlLabel value="macho" control={<Radio />} label="Macho" />
                 </RadioGroup>
+                {error && error.gender && Array.isArray(error.gender) && (<p className={classes.error}>{error.gender[0]}</p>)}
               </Grid>
 
               <Grid item xs={9}>
@@ -246,6 +242,8 @@ const FormPet = (props) => {
                   name="age"
                   value={pet.age}
                   onChange={handleInputChange}
+                  error={error && error.age && Array.isArray(error.age)}
+                  helperText={error && error.age && Array.isArray(error.age) && (error.age[0])}
                 />
               </Grid>
 
@@ -257,6 +255,8 @@ const FormPet = (props) => {
                   name="weigth"
                   value={pet.weigth}
                   onChange={handleInputChange}
+                  error={error && error.weigth && Array.isArray(error.weigth)}
+                  helperText={error && error.weigth && Array.isArray(error.weigth) && (error.weigth[0])}
                 />
               </Grid>
 
@@ -269,6 +269,8 @@ const FormPet = (props) => {
                   name="description"
                   value={pet.description}
                   onChange={handleInputChange}
+                  error={error && error.description && Array.isArray(error.description)}
+                  helperText={error && error.description && Array.isArray(error.description) && (error.description[0])}
                 />
               </Grid>
 
@@ -280,11 +282,13 @@ const FormPet = (props) => {
                   name="reason"
                   value={pet.reason}
                   onChange={handleInputChange}
+                  error={error && error.reason && Array.isArray(error.reason)}
+                  helperText={error && error.reason && Array.isArray(error.reason) && (error.reason[0])}
                 />
               </Grid>
 
               <Grid item xs={12}>
-                <Typography variant="h6" gutterBottom className={classes.location}>
+                <Typography variant="h6" gutterBottom color="primary" className={classes.location}>
                   2. Localizacion
                 </Typography>
               </Grid>
@@ -309,23 +313,28 @@ const FormPet = (props) => {
                   name="province"
                   value={pet.province}
                   onChange={handleInputChange}
+                  error={error && error.province && Array.isArray(error.province)}
+                  helperText={error && error.province && Array.isArray(error.province) && (error.province[0])}
                 />
               </Grid>
 
               <Grid item xs={3}>
                 <TextField
-                  id="outlined-basic"
+                  error={error && error.contact_phone && Array.isArray(error.contact_phone)}
+                  id="outlined-error-helper-text"
                   label="Telefono de contacto"
-                  variant="outlined"
                   name="contact_phone"
                   value={pet.contact_phone}
                   onChange={handleInputChange}
+                  variant="outlined"
+                  helperText={error && error.contact_phone && Array.isArray(error.contact_phone) && (error.contact_phone[0])}
                 />
+                
               </Grid>
 
               <Grid item xs={12}>
-                <Typography variant="h6" gutterBottom className={classes.location}>
-                  2. Foto de perfil
+                <Typography variant="h6" gutterBottom color="primary" className={classes.location}>
+                  3. Foto de perfil
                 </Typography>
 
                 <TextField
@@ -362,6 +371,7 @@ const FormPet = (props) => {
                 variant="contained"
                 color="primary"
                 type="submit"
+                className={classes.button}
               >
                 Guardar mascota
               </Button>
@@ -369,12 +379,7 @@ const FormPet = (props) => {
           </form>
         </Container>
       </main>
-      <footer className={classes.footer}>
-        <Typography variant="h6" align="center" gutterBottom>
-          New Best Friend
-        </Typography>
-        <Copyright />
-      </footer>
+      <Footer />
     </>
   )
 }

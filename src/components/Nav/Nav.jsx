@@ -16,7 +16,8 @@ import InputBase from '@material-ui/core/InputBase';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    color: 'white'
+    color: 'white',
+    padding: theme.spacing(3, 0)
   },
   icon: {
     marginLeft: theme.spacing(1),
@@ -114,7 +115,7 @@ const Nav = ({ logout, usuario }) => {
         </Toolbar>
       </AppBar>
 
-      <AppBar position="relative" color="secondary" className={classes.root}>
+      <AppBar position="relative" color="secondary" >
         <Toolbar>
           <Container maxWidth="lg">
             <Grid container justifyContent="space-between" alignItems="center">

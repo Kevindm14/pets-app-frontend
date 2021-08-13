@@ -27,10 +27,18 @@ const Copyright = () => {
 const FormLogin = (props) => {
   const { login } = props;
   const classes = useStyles();
+  const [error, setError] = useState();
   const [hash, setHash] = useState({
     email: '',
     password: ''
   })
+
+  const clearState = () => {
+    setHash({
+      email: '',
+      password: ''
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -38,7 +46,9 @@ const FormLogin = (props) => {
     try {
       await login(hash.email, hash.password)
     } catch (error) {
-      // mostrarError(error.response.data);
+      clearState()
+      setError(error.response.data);
+      
       console.log(error);
     }
   }
@@ -64,6 +74,13 @@ const FormLogin = (props) => {
             Inicia Sesión
           </Typography>
           <form className={classes.form} onSubmit={handleSubmit}>
+
+            {
+              error && error.errors && Array.isArray(error.errors) && 
+              (
+                <p className={classes.error}>Correo electronico o contraseña incorrectos</p>
+              )
+            }
             <TextField
               variant="outlined"
               margin="normal"
